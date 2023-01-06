@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using API.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using API.Models;
 using Microsoft.Extensions.Configuration;
 using SoccerSocialAppBackEnd.Models;
 using System;
@@ -15,6 +15,7 @@ namespace API.Controllers
     [ApiController]
     public class MeetUpController : ControllerBase
     {
+
         private readonly IConfiguration _configuration;
 
         public MeetUpController(IConfiguration configuration)
@@ -23,38 +24,26 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("MeetUp")]
-        public Response CreateDiscussionPost(UserMeetUpPosts discussion)
+        [Route("CreateUserMeetUpPosts")]
+        public Response CreateMeetUpPost(MeetUpPosts meetUp)
         {
             Response response = new Response();
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("myDb1").ToString());
             connection.Open();
             MeetUpFunctions func = new MeetUpFunctions();
-            response = func.CreateMeetUpPosts(discussion, connection);
+            response = func.CreateMeetUpPosts(meetUp, connection);
             return response;
         }
 
         [HttpPost]
-        [Route("ApproveMeetUpPosts")]
-        public Response ApproveUser(UserMeetUpPosts discussion)
+        [Route("GetMeetUpsPostByID")]
+        public Response GetMeetUpsPostByID(MeetUpPosts meetUp)
         {
             Response response = new Response();
             SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("myDb1").ToString());
             connection.Open();
             MeetUpFunctions func = new MeetUpFunctions();
-            response = func.ApproveMeetUpPost(discussion, connection);
-            return response;
-        }
-
-        [HttpPost]
-        [Route("ListMeetUpPosts")]
-        public Response GetDiscussionsList(UserDiscussionPosts discussion)
-        {
-            Response response = new Response();
-            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("myDb1").ToString());
-            connection.Open();
-            MeetUpFunctions func = new MeetUpFunctions();
-            response = func.GetMeetUpList(connection);
+            response = func.GetMeetUpsPostsByID(meetUp, connection);
             return response;
         }
     }

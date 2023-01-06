@@ -14,7 +14,7 @@ namespace SoccerSocialAppBackEnd.Models
         public RegisterUser RegistrationUser { get; set; }
         public List<UserMemePosts> ListUserMemePosts { get; set; }
         public List<UserDiscussionPosts> ListUserDiscussionPosts { get; set; }
-        public List<UserMeetUpPosts> ListUserMeetUpPosts { get; set; }
+        public List<MeetUpPosts> ListUserMeetUpPosts { get; set; }
 
         public List<Comments> ListComments { get; set; }
 
